@@ -1,0 +1,11 @@
+# Ignore Everything
+/*
+/*/
+
+# Except These
+!/src/
+!/libs/
+!/resources/
+!.gitignore
+!/LICENSE.md
+!/README.md

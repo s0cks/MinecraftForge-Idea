@@ -1,0 +1,26 @@
+<idea-plugin version="2">
+    <id>io.github.s0cks</id>
+    <name>Minecraft Forge Plugin</name>
+    <version>0.0.0.0</version>
+    <description>
+        Minecraft Forge support for IntelliJ Idea
+    </description>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection language="JAVA"
+                         implementationClass="io.github.s0cks.mcfp.inspections.MissingInstanceInspection"
+                         displayName="Missing Instance" groupBundle="io.github.s0cks.mcfp.MinecraftForgeBundle"
+                         groupKey="io.github.s0cks.mcfp.inspection.group.name" enabledByDefault="true"/>
+        <localInspection language="JAVA"
+                         implementationClass="io.github.s0cks.mcfp.inspections.InvalidInstanceInspection"
+                         displayName="Invalid Instance" groupBundle="io.github.s0cks.mcfp.MinecraftForgeBundle"
+                         groupKey="io.github.s0cks.mcfp.inspection.group.name" enabledByDefault="true"/>
+    </extensions>
+
+    <actions>
+        <group id="MinecraftForgeActionGroup" class="io.github.s0cks.mcfp.actions.MinecraftForgeActionGroup" text="Minecraft Forge">
+            <action class="io.github.s0cks.mcfp.actions.NewBlockClassAction" id="NewBlockClassAction"/>
+            <add-to-group group-id="NewGroup"/>
+        </group>
+    </actions>
+</idea-plugin>
