@@ -8,6 +8,7 @@ import com.intellij.psi.PsiAnnotation;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiField;
+import io.github.s0cks.mcfp.quickfix.CorrectInstanceFix;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
@@ -65,7 +66,7 @@ extends BaseLocalInspectionTool{
         PsiAnnotation instanceAnnot = AnnotationUtil.findAnnotation(instance, "net.minecraftforge.fml.common.Mod.Instance");
         if (!modAnnot.findAttributeValue("modid")
                      .equals(instanceAnnot.findAttributeValue("value"))) {
-          this.problems.registerProblem(instance, "Invalid Instance value. Suggested: " + modAnnot.findAttributeValue("modid").getText());
+          this.problems.registerProblem(instanceAnnot, "Invalid Instance value. Suggested: " + modAnnot.findAttributeValue("modid").getText(), new CorrectInstanceFix(modAnnot.findAttributeValue("modid").getText()));
         }
       }
     }

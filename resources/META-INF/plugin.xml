@@ -20,6 +20,7 @@
     <actions>
         <group id="MinecraftForgeActionGroup" class="io.github.s0cks.mcfp.actions.MinecraftForgeActionGroup" text="Minecraft Forge">
             <action class="io.github.s0cks.mcfp.actions.NewBlockClassAction" id="NewBlockClassAction"/>
+            <action class="io.github.s0cks.mcfp.actions.NewItemClassAction" id="NewItemClassAction"/>
             <add-to-group group-id="NewGroup"/>
         </group>
     </actions>
