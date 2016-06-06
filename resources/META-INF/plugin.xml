@@ -15,6 +15,14 @@
                          implementationClass="io.github.s0cks.mcfp.inspections.InvalidInstanceInspection"
                          displayName="Invalid Instance" groupBundle="io.github.s0cks.mcfp.MinecraftForgeBundle"
                          groupKey="io.github.s0cks.mcfp.inspection.group.name" enabledByDefault="true"/>
+        <localInspection language="JAVA"
+                         implementationClass="io.github.s0cks.mcfp.inspections.MissingProxyInspection"
+                         displayName="Missing Proxy" groupBundle="io.github.s0cks.mcfp.MinecraftForgeBundle"
+                         groupKey="io.github.s0cks.mcfp.inspection.group.name" enabledByDefault="true"/>
+        <localInspection language="JAVA"
+                         implementationClass="io.github.s0cks.mcfp.inspections.SidedProxyInspection"
+                         displayName="Sided Proxy" groupBundle="io.github.s0cks.mcfp.MinecraftForgeBundle"
+                         groupKey="io.github.s0cks.mcfp.inspection.group.name" enabledByDefault="true"/>
     </extensions>
 
     <actions>

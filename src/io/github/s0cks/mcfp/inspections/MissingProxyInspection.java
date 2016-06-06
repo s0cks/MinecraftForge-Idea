@@ -4,21 +4,19 @@ import com.intellij.codeInsight.AnnotationUtil;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.codeInspection.ex.BaseLocalInspectionTool;
 import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.PsiAnnotation;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiField;
-import io.github.s0cks.mcfp.quickfix.CorrectMissingInstanceFix;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
-public final class MissingInstanceInspection
+public final class MissingProxyInspection
 extends BaseLocalInspectionTool{
   @Nls
   @NotNull
   @Override
   public String getDisplayName() {
-    return "Missing Instance";
+    return "Missing Proxy";
   }
 
   @NotNull
@@ -31,34 +29,31 @@ extends BaseLocalInspectionTool{
   @NotNull
   @Override
   public PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
-    return new MissingInstanceVisitor(holder);
+    return new MissingProxyVisitor(holder);
   }
 
-  private static final class MissingInstanceVisitor
+  private static final class MissingProxyVisitor
   extends JavaElementVisitor{
     private final ProblemsHolder problems;
 
-    private MissingInstanceVisitor(ProblemsHolder problems){
+    private MissingProxyVisitor(ProblemsHolder problems){
       this.problems = problems;
     }
 
     @Override
     public void visitClass(PsiClass aClass) {
-      if(!AnnotationUtil.isAnnotated(aClass, "net.minecraftforge.fml.common.Mod", false)){
-        return;
-      }
+      if(!AnnotationUtil.isAnnotated(aClass, "net.minecraftforge.fml.common.Mod", false)) return;
 
-      boolean foundInstance = false;
+      boolean foundProxy = false;
       for(PsiField field : aClass.getFields()){
-        if(AnnotationUtil.isAnnotated(field, "net.minecraftforge.fml.common.Mod.Instance", false)){
-          foundInstance = true;
+        if(AnnotationUtil.isAnnotated(field, "net.minecraftforge.fml.common.SidedProxy", false)){
+          foundProxy = true;
           break;
         }
       }
 
-      if(!foundInstance) {
-        PsiAnnotation modAnnot = AnnotationUtil.findAnnotation(aClass, "net.minecraftforge.fml.common.Mod");
-        this.problems.registerProblem(aClass, "Mod class missing instance", new CorrectMissingInstanceFix(modAnnot.findAttributeValue("modid").getText()));
+      if(!foundProxy){
+        this.problems.registerProblem(aClass, "Mod class missing proxy");
       }
     }
   }
