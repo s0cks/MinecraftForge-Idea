@@ -7,6 +7,7 @@
     </description>
 
     <extensions defaultExtensionNs="com.intellij">
+        <moduleType id="FORGE_MODULE" implementationClass="io.github.s0cks.mcfp.ForgeModuleType"/>
         <localInspection language="JAVA"
                          implementationClass="io.github.s0cks.mcfp.inspections.MissingInstanceInspection"
                          displayName="Missing Instance" groupBundle="io.github.s0cks.mcfp.MinecraftForgeBundle"
