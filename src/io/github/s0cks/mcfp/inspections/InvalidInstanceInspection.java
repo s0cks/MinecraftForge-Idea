@@ -64,9 +64,12 @@ extends BaseLocalInspectionTool{
       if(instance != null){
         PsiAnnotation modAnnot = AnnotationUtil.findAnnotation(aClass, "net.minecraftforge.fml.common.Mod");
         PsiAnnotation instanceAnnot = AnnotationUtil.findAnnotation(instance, "net.minecraftforge.fml.common.Mod.Instance");
-        if (!modAnnot.findAttributeValue("modid")
-                     .equals(instanceAnnot.findAttributeValue("value"))) {
-          this.problems.registerProblem(instanceAnnot, "Invalid Instance value. Suggested: " + modAnnot.findAttributeValue("modid").getText(), new CorrectInstanceFix(modAnnot.findAttributeValue("modid").getText()));
+
+        String targetModid = modAnnot.findAttributeValue("modid").getText();
+        String ourModid = instanceAnnot.findAttributeValue("value").getText();
+
+        if(!ourModid.equals(targetModid)){
+          this.problems.registerProblem(instanceAnnot, "Invalid Instance value. Suggested: " + targetModid, new CorrectInstanceFix(targetModid));
         }
       }
     }

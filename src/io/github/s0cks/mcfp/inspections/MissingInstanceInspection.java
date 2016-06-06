@@ -4,9 +4,11 @@ import com.intellij.codeInsight.AnnotationUtil;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.codeInspection.ex.BaseLocalInspectionTool;
 import com.intellij.psi.JavaElementVisitor;
+import com.intellij.psi.PsiAnnotation;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiField;
+import io.github.s0cks.mcfp.quickfix.CorrectMissingInstanceFix;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,7 +61,10 @@ extends BaseLocalInspectionTool{
         }
       }
 
-      if(!foundInstance) this.problems.registerProblem(aClass, "Mod class missing instance");
+      if(!foundInstance) {
+        PsiAnnotation modAnnot = AnnotationUtil.findAnnotation(aClass, "net.minecraftforge.fml.common.Mod");
+        this.problems.registerProblem(aClass, "Mod class missing instance", new CorrectMissingInstanceFix(modAnnot.findAttributeValue("modid").getText()));
+      }
     }
   }
 }
